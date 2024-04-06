@@ -1,4 +1,5 @@
 const express = require('express');
+const connectDB = require('./database');
 const path = require('path');
 
 const app = express();
@@ -12,7 +13,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '/Phishnet/dist/index.html'));
 });
 
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+
