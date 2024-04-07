@@ -24,10 +24,10 @@ const client = new MongoClient(uri, {
   run().catch(console.dir);
 
   
-async function findValidPhish() {
+async function findValidPhish(urlInput) {
   try {
     await client.connect();
-    const result = await client.db("SiteReviews").collection("Sites").find({VALID: "VALID PHISH"}).toArray()
+    const result = await client.db("SiteReviews").collection("Sites").find({ID: urlInput}).toArray()
     console.log(result)
     return result; 
   } catch(err) {
