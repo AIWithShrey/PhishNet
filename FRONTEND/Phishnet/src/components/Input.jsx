@@ -8,7 +8,7 @@ function Input({onSubmit}){
     }
     // Grabs input value when button is pressed and clears field
     const handleSubmit = () => {
-        fetch('http://localhost:YOUR_EXPRESS_PORT/submit-url', { // Update the URL and port to match your Express server
+        fetch('/data', { // Update the URL and port to match your Express server
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,6 +26,7 @@ function Input({onSubmit}){
         });
 
         // Clear the input field
+        console.log("REachededededed")
         setUrlInput("");
     }
     return(
