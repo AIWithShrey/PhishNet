@@ -21,7 +21,7 @@ app.post('/data', async (req, res) => {
       const result = await findValidPhish(urlInput);
       console.log("Found phish", result);
 
-      res.json({ message: 'Data received successfully' });
+      res.json(result);
   } catch (err) {
       console.error(err);
       res.status(500).send('Server error');
