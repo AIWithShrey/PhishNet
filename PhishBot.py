@@ -7,6 +7,7 @@ from langchain.tools.tavily_search import TavilySearchResults
 from langchain_mongodb.chat_message_histories import MongoDBChatMessageHistory
 from pymongo import MongoClient
 import json
+import sys
 from langchain import hub
 
 # DB set up
@@ -55,7 +56,7 @@ model = LlamaCpp(
     temperature=0
 )
 
-# Prompt template
+# Prompt template 
 template = '''
 You are PhishBot, an AI model trained to detect phishing attacks.
 
@@ -116,7 +117,8 @@ agent_executor = AgentExecutor(agent=agent,
                                    verbose=True,
                                    max_iterations=5)
 
-url = "http://jdyadxdcml.replit.app/"
+url = sys.argv[1]
+
 
 
 print(json.dumps(get_response(url)))
