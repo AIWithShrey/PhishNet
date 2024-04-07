@@ -22,3 +22,23 @@ const client = new MongoClient(uri, {
     }
   }
   run().catch(console.dir);
+
+  
+async function findValidPhish() {
+  try {
+    await client.connect();
+    const result = await client.db("SiteReviews").collection("Sites").find({VALID: "VALID PHISH"}).toArray()
+    console.log(result)
+    return result; 
+  } catch(err) {
+    console.error('findValidPhish error:', err);
+    throw err; 
+  } finally {
+    await client.close();
+  } 
+}
+
+module.exports = { 
+  connect: run, 
+  findValidPhish 
+};
