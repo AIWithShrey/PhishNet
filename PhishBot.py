@@ -118,4 +118,5 @@ agent_executor = AgentExecutor(agent=agent,
 
 url = "http://jdyadxdcml.replit.app/"
 
-print(get_response(url))
+
+print(json.dumps(get_response(url)))
