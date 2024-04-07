@@ -24,7 +24,19 @@ app.get('/data', async (req, res) => {
       console.error(err);
       res.status(500).send('Server error');
     }
-  });
+});
+
+  app.post('/data', async (req, res) => {
+    console.log("Post made")
+    try {
+        await connect();
+        const result = await findValidPhish();
+        res.json(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
   
 
 // Start the server
