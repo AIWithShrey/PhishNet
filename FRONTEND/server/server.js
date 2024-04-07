@@ -9,7 +9,7 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, '..', '/Phishnet/dist')));
 
 // Define a route for the initial page
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {    
     res.sendFile(path.join(__dirname, '..', '/Phishnet/dist/index.html'));
 });
 
