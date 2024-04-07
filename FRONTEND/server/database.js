@@ -11,14 +11,11 @@ const client = new MongoClient(uri, {
 
   async function run() {
     try {
-      // Connect the client to the server	(optional starting in v4.7)
       await client.connect();
-      // Send a ping to confirm a successful connection
       await client.db("admin").command({ ping: 1 });
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
+      console.log()
     }
   }
   run().catch(console.dir);
@@ -26,15 +23,16 @@ const client = new MongoClient(uri, {
   
 async function findValidPhish(urlInput) {
   try {
-    await client.connect();
-    const result = await client.db("SiteReviews").collection("Sites").find({ID: urlInput}).toArray()
-    console.log(result)
+    console.log('Connected to MongoDB');
+    const result = client.db("SiteReviews").collection("Sites").find({ID: 1856961}).toArray()
     return result; 
+    
+
   } catch(err) {
     console.error('findValidPhish error:', err);
     throw err; 
   } finally {
-    await client.close();
+    console.log() 
   } 
 }
 
@@ -42,3 +40,4 @@ module.exports = {
   connect: run, 
   findValidPhish 
 };
+
