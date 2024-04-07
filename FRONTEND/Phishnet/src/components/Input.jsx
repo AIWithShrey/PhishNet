@@ -1,49 +1,53 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 
-function Input({onSubmit}){
-    const [urlInput, setUrlInput] = useState("");
-    //handles changes when input field has objects inside
-    const handleChange = (e) => {
-        setUrlInput(e.target.value);
-    }
-    // Grabs input value when button is pressed and clears field
-    const handleSubmit = () => {
-        fetch('/data', { // Update the URL and port to match your Express server
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ urlInput }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Handle successful response if needed
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle error if needed
-        });
+function Input({ onSubmit }) {
+  const [urlInput, setUrlInput] = useState("");
 
-        // Clear the input field
-        console.log("REachededededed")
-        setUrlInput("");
+  const handleChange = (e) => {
+    setUrlInput(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    try {
+      const response = await fetch('http://localhost:3000/data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ urlInput }),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok'); 
+      }
+
+      const data = await response.json();
+      console.log('Success:', data);
+      // Call the onSubmit prop if it's provided
+      onSubmit && onSubmit(data);
+
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors appropriately, e.g., display an error message
+    } finally {
+      // Clear the input field
+      setUrlInput("");
     }
-    return(
-        <>
-        <div className="text-box">
-            <input 
-                type="text"
-                value={urlInput}
-                onChange={handleChange}
-                placeholder="What do you want to phish Today?"
-                />
-            <button
-                className="submit-button"
-                onClick={handleSubmit}
-                >🎣</button>
-        </div>
-        </>
-    )
+  };
+
+  return (
+    <form onSubmit={handleSubmit}> {/* Wrap in a form */}
+      <div className="text-box">
+        <input 
+          type="text"
+          value={urlInput}
+          onChange={handleChange}
+          placeholder="What do you want to phish Today?"
+        />
+        <button type="submit" className="submit-button">🎣</button>
+      </div>
+    </form>
+  );
 }
-export default Input
+
+export default Input;

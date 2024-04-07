@@ -33,7 +33,7 @@ app.post('/data', async (req, res) => {
     console.log("Post made")
     try {
         await connect();
-        const result = await findValidPhish();
+        const result = await findValidPhish(req.body.urlInput);
         res.json(result);
     } catch (err) {
         console.error(err);

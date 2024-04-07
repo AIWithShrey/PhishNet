@@ -23,10 +23,9 @@ const client = new MongoClient(uri, {
   
 async function findValidPhish(urlInput) {
   try {
-    console.log('Connected to MongoDB');
-    const result = client.db("SiteReviews").collection("Sites").find({ID: 1856961}).toArray()
+    console.log(urlInput);
+    const result = client.db("SiteReviews").collection("Sites").find({Phish: urlInput}).toArray()
     return result; 
-    
 
   } catch(err) {
     console.error('findValidPhish error:', err);
