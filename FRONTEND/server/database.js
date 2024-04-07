@@ -25,6 +25,7 @@ async function findValidPhish(urlInput) {
   try {
     console.log(urlInput);
     const result = client.db("SiteReviews").collection("Sites").find({Phish: urlInput}).toArray()
+    
     return result; 
 
   } catch(err) {
