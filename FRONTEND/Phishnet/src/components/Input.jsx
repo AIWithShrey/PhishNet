@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+
 function Input({onSubmit}){
     const [urlInput, setUrlInput] = useState("");
     //handles changes when input field has objects inside
@@ -7,7 +8,24 @@ function Input({onSubmit}){
     }
     // Grabs input value when button is pressed and clears field
     const handleSubmit = () => {
-        onSubmit(urlInput);
+        fetch('http://localhost:YOUR_EXPRESS_PORT/submit-url', { // Update the URL and port to match your Express server
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ urlInput }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Handle successful response if needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error if needed
+        });
+
+        // Clear the input field
         setUrlInput("");
     }
     return(
